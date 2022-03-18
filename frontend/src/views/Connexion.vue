@@ -15,7 +15,7 @@
                
             </div>
             <button type="submit" class="btn btn-primary  mt-2 w-50 shadow contrastBoutonNoir font-weight-bold">SE CONNECTER</button>
-           <router-link to="/inscription"> <button type="submit" class="btn btn-primary contrastBoutonNoir text-white mt-2 w-50 pt-2 border-0 rounded shadow font-weight-bold ">S'INSCRIRE</button></router-link> 
+           <router-link to="/inscription"> <button type="submit" class="btn btn-primary contrastBoutonNoir text-white mt-2 w-50 pt-2 border-0 rounded shadow font-weight-bold">S'INSCRIRE</button></router-link> 
         </form>
     </section>
     <div v-show="isInvalid" class="invalidBox m-3" key="invalid" style="border-radius:60px">

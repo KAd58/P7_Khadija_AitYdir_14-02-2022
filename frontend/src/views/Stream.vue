@@ -1,34 +1,12 @@
 <template>
 <main class="container">    
     <div class="col-12">
-        <div class="col-10 ">
+        <div class="col-12 my-2 ">
             <h1 v-if= 'this.messages.length !== 0' class="col-8 my-2 btn  btn-block btn-info font-weight-bold"  style="align-items=center; background-color: black ; color:white; border-radius:30px; cursor:default; ">Dernières Publications</h1>   
-            <h1  v-else class='col-8 my-2 btn  btn-block btn-danger font-weight-bold' style="cursor:default;border-radius:60px"> Aucune publication pour l'instant, soyez le premier à en créer une ! </h1>
+            <h1  v-else class='col-12 my-2 btn  btn-block btn-danger font-weight-bold' style="cursor:default;border-radius:60px"> Aucune publication pour l'instant, soyez le premier à en créer une ! </h1>
         </div>
         <section id="filPrincipal" class="row">
-            <!-- Article utilisateur -->
-            <article class="col-12 col-md-4">
-                <div class="card bg-light my-3 class=center-block" style="float:none;">
-                    <div class="card-header">
-                        <div class="row justify-content-around">
-                            <p class="m-1"> Bonjour {{ name }} ! 
-                            <button @click="localClear" style="width:60px"> <img src="../assets/signout.svg" alt="sign-out" style="width:35px"/> </button></p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <p id="membre">Membre depuis le {{ creation }}</p>
-                        </div>
-                        <div id="compteButton" class="text-center">
-                            <router-link v-if="isAdmin" to='/Admin'><button type="button" class=" btn btn-danger mx-auto rounded p-2 buttonsPanel">ADMIN. <button class=" rounded p-1 m-1 "><img src="../assets/trash.svg" alt="trash" style="width:25px"> ACTIVÉE</button></button></router-link> 
-                            <router-link v-else to='/Compte'><button type="button" class=" btn btn-secondary mx-auto rounded p-2 buttonsPanel">COMPTE</button></router-link> 
-                        </div>
-                    </div>
-                    <div id="publicationButton" class=" card-body text-center">
-                        <router-link to='/Create' ><button type="button" class="btn btn-dark mx-auto p-2 rounded buttonsPanel">PUBLIER</button></router-link>
-                    </div>
-                </div>                  
-            </article>
+           
             <!-- Bloc avec tous les messages -->
             <sub class="col-12 col-md-8">
                 <div v-for="message in messages" :key="message.id" class="card bg-light my-3">
@@ -55,6 +33,30 @@
                     </div>    
                 </div>                        
             </sub>
+
+             <!-- Article utilisateur -->
+            <article class="col-12 col-md-4" >
+                <div class="card bg-light my-3 class=center-block" style="float:none;">
+                    <div class="card-header">
+                        <div class="row justify-content-around">
+                            <p class="m-1"> Bonjour {{ name }} ! 
+                            <button @click="localClear" style="width:60px"> <img src="../assets/signout.svg" alt="sign-out" style="width:35px"/> </button></p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p id="membre">Membre depuis le {{ creation }}</p>
+                        </div>
+                        <div id="compteButton" class="text-center">
+                            <router-link v-if="isAdmin" to='/Admin'><button type="button" class=" btn btn-danger mx-auto rounded p-2 buttonsPanel">ADMIN. <button class=" rounded p-1 m-1 "><img src="../assets/trash.svg" alt="trash" style="width:25px"> ACTIVÉE</button></button></router-link> 
+                            <router-link v-else to='/Compte'><button type="button" class=" btn btn-secondary mx-auto rounded p-2 buttonsPanel">COMPTE</button></router-link> 
+                        </div>
+                    </div>
+                    <div id="publicationButton" class=" card-body text-center">
+                        <router-link to='/Create' ><button type="button" class="btn btn-dark mx-auto p-2 rounded buttonsPanel">PUBLIER</button></router-link>
+                    </div>
+                </div>                  
+            </article>
         </section>
     </div>
 </main>

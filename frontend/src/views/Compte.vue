@@ -4,7 +4,7 @@
         <div class="col-10">
             <!-- Titre -->
             <div class="col-12">
-                <h1 class="my-2 btn btn-block btn-info font-weight-bold" style="cursor:default">Vous consultez vote compte</h1>
+                <h1 class="my-2 btn btn-block btn-info font-weight-bold" style="cursor:default">Vous consultez votre compte</h1>
                 <Home></Home>
             </div>
             <section id="filPrincipal" class="row">
@@ -13,8 +13,8 @@
                     <div class="card bg-light my-3 class=center-block" style="float:none;">
                         <div class="card-header">
                             <div class="row justify-content-around">
-                                <p class="m-1"> Bonjour {{ nameCurrentUser }} ! </p>
-                                <button @click="localClear"> <img src="../assets/signout.svg" alt="sign-out" style="width:35px"/> </button>
+                                <p class="m-1"> Bonjour {{ nameCurrentUser }} ! 
+                                <button @click="localClear"> <img src="../assets/signout.svg" alt="sign-out" style="width:35px"/> </button></p>
                             </div>
                         </div>
                         <div class="card-body text-center">
