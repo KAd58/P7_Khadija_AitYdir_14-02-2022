@@ -2,6 +2,7 @@
 const db = require("../models");  
 const Comment = db.comments;              
 const User = db.users;
+const jwt = require("jsonwebtoken");
 
 // Routes CRUD : Create, Read, Update, Delete.
 // Create ou Créer
