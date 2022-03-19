@@ -42,17 +42,27 @@ exports.findAllComments = (req, res, next) => {
 
 // Delete ou Supprimer
 exports.deleteComment = (req, res, next) => {
+    const token = req.header.authorization.split(' ')[1];
+    console.log(token);
+    const decodedToken = jwt.verify(token, 'TKN_SECRET');
+    console.log(decodedToken);
+    //userId = id de l'utilisateur connecté
+    const userId = decodedToken.userId
+
     console.log("COMMENT DELETION PROCESS")
     console.log(" comment id is: " + req.query.commentId)
     console.log(" comment Uid is : " + req.query.commentUid)
     console.log(" currentUid who ask the deletion is : " + req.query.currentUid)
-
     console.log(" is it the author of the comment who ask the deletion or is he Admin (admin is uid=1 so should be currentUid = 1) ? ") + 
     console.log(" if True => delete the comment ")
     console.log(" if False => unauthorized ")
 
-    
-  Comment.destroy({ where: { id: req.query.commentId }})
+    User.findOne({ where : {id: userId}})
+    .then(user =>{
+        if(user.isAdmin){
+         Comment.destroy({ where: { id: req.query.commentId }})
         .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
         .catch(error => res.status(400).json({ error }))
-};
+}
+})
+}

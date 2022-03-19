@@ -89,15 +89,23 @@ exports.findAllMessagesForOne = (req, res, next) => {
 
 // Delete ou Supprimer
 exports.deleteMessage = (req, res, next) => {
+    const token = req.header.authorization.split(' ')[1];
+    console.log(token)
+    const decodedToken = jwt.verify(token, 'TKN_SECRET');
+    console.log(decodedToken)
+    //userId = id de l'utilisateur connecté
+     const userId = decodedToken.userId
+    
     console.log(" MESSAGE DELETION PROCESS ")
     console.log(" message Id is: " + req.query.messageId)
     console.log(" message User Id is : " + req.query.messageUid)
     console.log(" User Id who ask the deletion is : " + req.query.uid)
-
     console.log(" is it the author of the message who ask the deletion or is he Admin (admin is uid=1) ? ") + 
     console.log(" if True => delete the message ")
     console.log(" if False => unauthorized ")
-    
+    User.findOne({ where : {id: userId}})
+        .then(user =>{
+            if(user.isAdmin){
     console.log(req.query.messageUid == req.query.uid || req.query.uid == 1)
     if(req.query.messageUid == req.query.uid || req.query.uid == 1) {
         Comment.destroy({ where: { MessageId: req.query.messageId }})
@@ -110,3 +118,4 @@ exports.deleteMessage = (req, res, next) => {
         res.status(401).json({message : " Non autorisé "})
     }
 }
+        })}

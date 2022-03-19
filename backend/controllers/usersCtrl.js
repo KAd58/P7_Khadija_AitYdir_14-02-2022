@@ -4,6 +4,8 @@ const User = db.users
 const Message = db.messages
 const Comment = db.comments
 const { Op } = require("sequelize");
+const jwt = require('jsonwebtoken');
+const user = require("../models/user");
 
 // Routes CRUD : Create, Read, Update, Delete.
 // Create ou Créer
@@ -47,26 +49,33 @@ exports.findAllUsers = (req, res, next) => {
 
 // Paramètres uid et isAdmin
 exports.deleteOneUser = (req, res, next) => {
+    const token = req.header.authorization.split(' ')[1];
+    console.log(token);
+    const decodedToken = jwt.verify(token, 'TKN_SECRET');
+    console.log(decodedToken);
+    //userId = id de l'utilisateur connecté
+    
+    const userId = decodedToken.userId;
+
     console.log(" USER DELETION PROCESS ")
     console.log(" user Id is: " + req.query.uid)
     console.log(" User Id who ask the deletion is sAdmin : " + req.query.isAdmin)
-
     console.log(" if isAdmin True => delete the user ")
     console.log(" if False => unauthorized ")
-    
-    console.log(req.query.isAdmin)
-    if(req.query.isAdmin) {
+    User.findOne({ where : {id: userId}})
+        .then(user =>{
+            if(user.isAdmin){
         User.destroy({ where: { id: req.query.uid}})
         Message.destroy({ where: { UserId: req.query.uid }})
         Comment.destroy({ where: { UserId: req.query.uid }})
         .then((res) => {
-            res.status(200).json({ message: "L'utilisateur, ses messages et ses commentaires ont été spprimés" })
+            res.status(200).json({ message: "L'utilisateur, ses messages et ses commentaires ont été supprimés" })
         })
         .catch(error => res.status(400).json({ error }))
     } else {
         res.status(401).json({message : " Non autorisé "})
     }
-}
+})}
 
 exports.deleteMyAccount = (req, res, next) => {
     console.log(" USER ACCOUNT DELETION PROCESS ")
